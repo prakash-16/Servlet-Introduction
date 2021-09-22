@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "Login Servlet Interface",
 		urlPatterns = {"/LoginServlet"},
 		initParams = {
+				@WebInitParam(name = "user",value = "Karan"),
 				@WebInitParam(name = "pwd", value ="karan123")
 		})
 public class FirstServlet extends HttpServlet{
@@ -23,8 +24,7 @@ public class FirstServlet extends HttpServlet{
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String user = req.getParameter("user");
 		String pwd = req.getParameter("pwd");
-		String correctPwd = getServletConfig().getInitParameter("pwd");
-		if(user.matches("^[A-Z]{1}[a-z]{3,}$") && correctPwd.equals(pwd)) {
+		if(user.matches("^[A-Z]{1}[a-z]{3,}$") && pwd.equals("^([A-Z]{1,12})([a-z]{1,12})([0-9]{1,12})([!@#$%^&*]{1})$")) {
 			req.setAttribute("user", user);
 			req.getRequestDispatcher("LoginSuccess.jsp").forward(req, res);
 		}
